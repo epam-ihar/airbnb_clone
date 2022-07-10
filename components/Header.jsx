@@ -74,11 +74,11 @@ function Header() {
         })}
       >
         <p className="hidden md:inline cursor-pointer">Become a host</p>
-        <GlobeAltIcon className="h-6 shrink-0" />
+        <GlobeAltIcon className="h-6 shrink-0 hidden md:inline cursor-pointer" />
 
         <div className="flex items-center text-gray-500 bg-white space-x-2 border-2 rounded-full p-2">
           <MenuIcon className="h-6 shrink-0" />
-          <UserCircleIcon className="h-6" />
+          <UserCircleIcon className="h-6 hidden md:inline" />
         </div>
       </div>
     </header>
