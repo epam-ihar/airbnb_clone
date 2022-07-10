@@ -65,7 +65,7 @@ function Header() {
           name="search"
           id="search"
         />
-        <SearchIcon className="h-8 shrink-0 bg-red-400 text-white rounded-full p-2 cursor-pointer hidden md:inline-flex md:mx-2" />
+        <SearchIcon className="h-8 shrink-0 bg-red-400 text-white rounded-full p-2 cursor-pointer hidden md:inline md:mx-2" />
       </div>
       <div
         className={cn("flex space-x-4 justify-end items-center ", {
