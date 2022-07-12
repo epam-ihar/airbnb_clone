@@ -71,8 +71,8 @@ function Header() {
           name="search"
           id="search"
         />
-        <div className="relative flex-shrink-0 basis-10">
-          <SearchIcon className="h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer hidden md:inline md:mx-2" />
+        <div className="absolute right-1 basis-10">
+          <SearchIcon className="h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer hidden md:inline md:ml-2" />
         </div>
       </div>
       <div
