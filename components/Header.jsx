@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import {
   SearchIcon,
@@ -8,24 +8,30 @@ import {
 } from "@heroicons/react/solid";
 import cn from "classnames";
 
-const useScrollPosition = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
+const useScrollReachedOffset = (targetOffset) => {
+  const [reached, setReached] = useState(false);
+
+  const reachedRef = useRef(reached);
+  reachedRef.current = reached;
 
   useEffect(() => {
     const updatePosition = () => {
-      setScrollPosition(window.pageYOffset);
+      const newReached = window.pageYOffset >= targetOffset;
+
+      if (reachedRef.current !== newReached) {
+        setReached(newReached);
+      }
     };
     window.addEventListener("scroll", updatePosition);
     updatePosition();
     return () => window.removeEventListener("scroll", updatePosition);
   }, []);
 
-  return scrollPosition;
+  return reached;
 };
 
 function Header() {
-  const scrollPosition = useScrollPosition();
-  const isInScroll = scrollPosition > 50;
+  const isInScroll = useScrollReachedOffset(50);
 
   return (
     <header
@@ -48,7 +54,7 @@ function Header() {
       </div>
       <div
         className={cn(
-          "flex items-center bg-white bg-opacity-30 rounded-full py-2 md:shadow-sm",
+          "relative flex items-center bg-white bg-opacity-30 rounded-full py-2 md:shadow-sm",
           {
             "md:border-2": isInScroll,
             "md:border-2 md:border-transparent": !isInScroll,
@@ -56,7 +62,7 @@ function Header() {
         )}
       >
         <input
-          className={cn("flex-grow pl-5 bg-transparent outline-none ", {
+          className={cn("flex-1 pl-5 bg-transparent outline-none ", {
             "placeholder-gray-400 text-gray-600": isInScroll,
             "placeholder-gray-200 text-white": !isInScroll,
           })}
@@ -65,7 +71,9 @@ function Header() {
           name="search"
           id="search"
         />
-        <SearchIcon className="h-8 shrink-0 bg-red-400 text-white rounded-full p-2 cursor-pointer hidden md:inline md:mx-2" />
+        <div className="relative flex-shrink-0 basis-10">
+          <SearchIcon className="h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer hidden md:inline md:mx-2" />
+        </div>
       </div>
       <div
         className={cn("flex space-x-4 justify-end items-center ", {
